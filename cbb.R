@@ -6,7 +6,7 @@ library(brnn)
 
 # college basketball stats: by year
 # team stats
-given_year = 2019
+
 scrape_cbbteams <- function(given_year = 2019){
   year = paste(given_year)
   link <- paste0("https://www.sports-reference.com/cbb/seasons/",year,"-school-stats.html")
@@ -26,6 +26,7 @@ scrape_cbbteams <- function(given_year = 2019){
   }
   
   teams <- na.omit(teams)
+  teams$Yr = given_year
   return(teams)
 }
 mar.mad <- function(df = stats2019){
@@ -55,3 +56,4 @@ stats2010 <- mar.mad(scrape_cbbteams(2010))
 
 df <- data.frame(rbind(stats2019, stats2018, stats2017, stats2016, stats2015, 
                    stats2014, stats2013, stats2012, stats2011, stats2010))
+
