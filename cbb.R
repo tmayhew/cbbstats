@@ -53,3 +53,5 @@ stats2012 <- mar.mad(scrape_cbbteams(2012))
 stats2011 <- mar.mad(scrape_cbbteams(2011))
 stats2010 <- mar.mad(scrape_cbbteams(2010))
 
+df <- data.frame(rbind(stats2019, stats2018, stats2017, stats2016, stats2015, 
+                   stats2014, stats2013, stats2012, stats2011, stats2010))
