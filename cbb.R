@@ -6,6 +6,7 @@ library(brnn)
 
 # college basketball stats: by year
 # team stats
+# Example: https://www.sports-reference.com/cbb/seasons/2020-school-stats.html"
 
 scrape_cbbteams <- function(given_year = 2019){
   year = paste(given_year)
@@ -56,4 +57,21 @@ stats2010 <- mar.mad(scrape_cbbteams(2010))
 
 df <- data.frame(rbind(stats2019, stats2018, stats2017, stats2016, stats2015, 
                    stats2014, stats2013, stats2012, stats2011, stats2010))
+df$point.diff <- df$Points.S - df$Points.A
+
+# W/L: R-sq = 0.344
+ggplot(df, aes(x=marmad, y=W.L.), alpha = I(1/5)) + geom_point() + theme_bw()
+
+# W: R-sq = 0.383
+ggplot(df, aes(x=marmad, y=W), alpha = I(1/5)) + geom_point() + theme_bw()
+
+# SRS: R-sq = 0.35
+ggplot(df, aes(x=marmad, y=SRS), alpha = I(1/5)) + geom_point() + theme_bw()
+
+summary(lm(marmad ~ W + SRS, data=df))
+
+# Point Diff: R-sq = 0.33
+summary.1 <- summary(lm(marmad ~ W + SRS + point.diff, data=df))
+print(summary.1)
+
 
